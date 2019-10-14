@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.mapper.ChapterMapper">
+    <!--根据页号查询-->
+    <select id="findAll" resultType="chapter">
+        select * from chapter
+        where albumId=#{albumid}
+        LIMIT #{start},#{rows}
+    </select>
+
+    <!--查总条数-->
+    <select id="count" resultType="java.lang.Integer">
+        select count(id) from chapter where albumId=#{albumid}
+    </select>
+
+    <!--增-->
+    <insert id="save" parameterType="chapter">
+        insert into chapter values(#{id},#{filePath},#{title},#{size},#{timeLong},#{status},#{albumId})
+    </insert>
+
+    <!--删-->
+    <delete id="delete" parameterType="java.lang.String">
+        delete from chapter
+        where id in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--改-->
+    <update id="update" parameterType="chapter">
+        update chapter set title=#{title},status=#{status}
+        where id=#{id}
+    </update>
+
+    <update id="updatefilePath" parameterType="chapter">
+        update chapter set filePath=#{filePath},`size`=#{size},timeLong=#{timeLong} where id=#{id};
+    </update>
+</mapper>

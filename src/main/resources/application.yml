@@ -1,0 +1,33 @@
+server:
+  port: 8989
+  servlet:
+    context-path: /cmfz
+    #热部署
+    jsp:
+      init-parameters:
+        development: true
+#数据源
+spring:
+  jackson:
+    date-format: "yyyy-MM-dd"
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/cmfz
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+  #视图解析器
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+      #上传文件的大小设置
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 200MB
+#mybatis
+mybatis:
+  type-aliases-package: com.baizhi.entity
+  mapper-locations: classpath:mapper/*Mapper.xml
+
